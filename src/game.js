@@ -4,10 +4,24 @@
 //start the prompt
 // prompt.start();
 
-var Game = function() {
-  this.board.firstRow = ['*', '*', '*'];
-  this.board.secondRow = ['*', '*', '*'];
-  this.board.thirdRow = ['*', '*', '*'];
+var Game = function() {};
+var helperBoard = [
+        [1,2,3],
+        [4,5,6],
+        [7,8,9]
+      ]
+
+Game.board = [
+        [" "," "," "],
+        [" "," "," "],
+        [" "," "," "],
+      ]
+
+
+  // this.board = "hello";
+  // this.board.firstRow = ['*', '*', '*'];
+  // this.board.secondRow = ['*', '*', '*'];
+  // this.board.thirdRow = ['*', '*', '*'];
 
   // var playerX = function(){
   //   this.name = name;
@@ -15,7 +29,7 @@ var Game = function() {
   //
   // var playerO = function(){};
 
-};
+
 
 
 // var game = new Game();
