@@ -26,6 +26,12 @@ describe('Game', function() {
     });
   });
 
+  describe('winner', function() {
+    it('There should not be winner on an empty board', function() {
+        expect(testGame.winner()).toBeDefined();
+        expect(testGame.winner()).toEqual(false);
+    });
+  });
 
 });
 
