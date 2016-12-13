@@ -4,14 +4,9 @@
 //start the prompt
 // prompt.start();
 
-
-var Player = function(){
-};
-
-Player.name = function(name){
+var Player = function(name){
   this.name = name
-}
-
+};
 
 var Game = function(){
   this.board = [
@@ -20,8 +15,8 @@ var Game = function(){
           [" "," "," "],
         ];
 
-  this.playerX = new Player("Erin", true);
-  this.playerO = new Player("Rachel", false);
+  this.playerX = new Player("Erin");
+  this.playerO = new Player("Rachel");
 
   this.winner = function(){
 
@@ -51,13 +46,10 @@ var Game = function(){
   var helperBoardRow2 = [4,5,6]
   var helperBoardRow3 = [7,8,9]
 
-  this.drawSymbol = function(symbol){
+  this.drawSymbol = function(symbol, spot){
     // var spot = result.spot.toLowerCase()
 
-    //var spot = "1" //<--- hardcoded example to show what the switch statement should do until we can get user input via terminal
-
-    var spot = Math.floor((Math.random() * 10)).toString(); //<--- randomized the numbers picked to see if the flow of the game worked
-
+    //var spot = "1" //<--- hardcoded example to show what the switch statement should do until we can get user input
     switch (spot) {
 
       case '1':
@@ -186,7 +178,8 @@ var Game = function(){
     while (this.winner() == false) {
       if (this.count() == false){
         console.log( this.playerX.name + ", which spot would you like to put your X in? Please type a number.")
-        this.drawSymbol("X")
+        //take in the number of the spot
+        this.drawSymbol("X", Math.floor((Math.random() * 10) + 1).toString())
         this.showBoard()
         if (this.winner() == "X") {
           console.log("Congrats, " + this.playerX.name + " wins!")
@@ -196,7 +189,8 @@ var Game = function(){
 
       if (this.count() == true){ //it's O's turn because there are more X's on the board
         console.log( this.playerO.name + ", which spot would you like to put your O in? Please type a number.")
-        this.drawSymbol("O")
+        //take in the number of the spot
+        this.drawSymbol("O", Math.floor((Math.random() * 10)+ 1).toString())
         this.showBoard()
         if (this.winner() == "O") {
           console.log("Congrats, " + this.playerO.name + " wins!")
@@ -207,11 +201,8 @@ var Game = function(){
   };//play
 };
 
-var game = new Game
-game.play();
-
-
-
+// var game = new Game
+// game.play();
 
 
 // prompt.get(['playerX','playerO'], game);
