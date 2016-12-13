@@ -31,6 +31,69 @@ describe('Game', function() {
         expect(testGame.winner()).toBeDefined();
         expect(testGame.winner()).toEqual(false);
     });
+
+    it('should return the winner for horizontal wins', function() {
+      testGame.board = [
+              ["X","X","X"],
+              [" "," "," "],
+              [" "," "," "],
+            ];
+        expect(testGame.winner()).toEqual("X");
+
+        testGame.board = [
+              [" "," "," "],
+              ["X","X","X"],
+              [" "," "," "],
+            ];
+        expect(testGame.winner()).toEqual("X");
+
+        testGame.board = [
+              [" "," "," "],
+              [" "," "," "],
+              ["X","X","X"],
+            ];
+        expect(testGame.winner()).toEqual("X");
+    });
+
+      it('should return the winner for vertical wins', function() {
+        testGame.board = [
+                ["O"," "," "],
+                ["O"," "," "],
+                ["O"," "," "],
+              ];
+        expect(testGame.winner()).toEqual("O");
+
+        testGame.board = [
+                [" ","O"," "],
+                [" ","O"," "],
+                [" ","O"," "],
+              ];
+        expect(testGame.winner()).toEqual("O");
+
+        testGame.board = [
+                [" "," ","O"],
+                [" "," ","O"],
+                [" "," ","O"],
+              ];
+        expect(testGame.winner()).toEqual("O");
+    });
+
+    it('should return the winner for diagonal wins', function() {
+      testGame.board = [
+              ["O"," "," "],
+              [" ","O"," "],
+              [" "," ","O"],
+            ];
+      expect(testGame.winner()).toEqual("O");
+
+      testGame.board = [
+              [" "," ","X"],
+              [" ","X"," "],
+              ["X"," "," "],
+            ];
+      expect(testGame.winner()).toEqual("X");
+    });
+
   });
 
 });
