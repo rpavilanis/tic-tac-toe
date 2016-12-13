@@ -15,6 +15,14 @@ var Game = function(){
           [" "," "," "],
         ];
 
+  this.boardReset = function(){
+    for(var i = 0; i < 3; ++i){
+      for(var j = 0; j < 3; ++j){
+        this.board[i][j] = " "
+      }
+    }
+  }
+
   this.playerX = new Player("Erin");
   this.playerO = new Player("Rachel");
 

@@ -123,19 +123,51 @@ describe('Game', function() {
             ];
       expect(testGame.count()).toEqual(true);
 
-      testGame.board = [ //empty board 
+      testGame.board = [ //empty board
               [" "," "," "],
               [" "," "," "],
               [" "," "," "],
             ];
       expect(testGame.count()).toEqual(false);
     });
+  });
 
+  describe('drawSymbol', function() {
+    it('should let a player put their symbol in each of the 9 spots, if the spots are empty (spot can be number or word)', function() {
+        testGame.drawSymbol("X", "1");
+        expect(testGame.board[0][0]).toEqual("X")
+        testGame.drawSymbol("X", "2");
+        expect(testGame.board[0][1]).toEqual("X")
+        testGame.drawSymbol("X", "three");
+        expect(testGame.board[0][2]).toEqual("X")
+        testGame.drawSymbol("O", "4");
+        expect(testGame.board[1][0]).toEqual("O")
+        testGame.drawSymbol("X", "5");
+        expect(testGame.board[1][1]).toEqual("X")
+        testGame.drawSymbol("O", "6");
+        expect(testGame.board[1][2]).toEqual("O")
+        testGame.drawSymbol("X", "7");
+        expect(testGame.board[2][0]).toEqual("X")
+        testGame.drawSymbol("X", "8");
+        expect(testGame.board[2][1]).toEqual("X")
+        testGame.drawSymbol("O", "nine");
+        expect(testGame.board[2][2]).toEqual("O")
+    });
 
-
+    it('should NOT let a player put their symbol in a spot if the spot is already filled', function() {
+        testGame.boardReset()
+        expect(testGame.board[0][0]).toEqual(" ") //ensures spot 1 is empty
+        testGame.drawSymbol("X", "1");
+        expect(testGame.board[0][0]).toEqual("X")
+        testGame.drawSymbol("O", "1");
+        expect(testGame.board[0][0]).toEqual("X") //should still be X
+    });
 
 
   });
+
+
+
 });
 
 import Game from "game";
