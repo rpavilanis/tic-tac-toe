@@ -4,18 +4,41 @@
 //start the prompt
 // prompt.start();
 
-var Game = function() {};
+
+var Player = function(name,active){
+  this.name = name
+  this.active = active
+};
+
+var Game = function(){
+  this.board = [
+          [" "," "," "],
+          [" "," "," "],
+          [" "," "," "],
+        ];
+
+  this.playerX = new Player("Erin", true);
+  this.playerO = new Player("Rachel", false);
+};
+
 var helperBoard = [
         [1,2,3],
         [4,5,6],
         [7,8,9]
       ]
 
-Game.board = [
-        [" "," "," "],
-        [" "," "," "],
-        [" "," "," "],
-      ]
+
+
+
+
+
+
+
+
+
+
+// Game.playerX = function
+// active = true;
 
 
   // this.board = "hello";
