@@ -50,53 +50,92 @@ var Game = function(){
 
   this.drawSymbol = function(symbol){
     // var spot = result.spot.toLowerCase()
-    var spot = "3" //<--- hardcoded example to show what the switch statement should do until we can get user input via terminal
+
+    //var spot = "1" //<--- hardcoded example to show what the switch statement should do until we can get user input via terminal
+
+    var spot = Math.floor((Math.random() * 10)).toString(); //<--- randomized the numbers picked to see if the flow of the game worked
 
     switch (spot) {
 
       case '1':
       case 'one':
+        if (this.board[0][0] == " "){
           this.board[0][0] = symbol
+        }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '2':
       case 'two':
+        if (this.board[0][1] == " "){
           this.board[0][1] = symbol
+          }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '3':
       case 'three':
+        if (this.board[0][2] == " "){
           this.board[0][2] = symbol
+          }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '4':
       case 'four':
+        if (this.board[1][0] == " "){
           this.board[1][0] = symbol
+          }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '5':
       case 'five':
+        if (this.board[1][1] == " "){
           this.board[1][1] = symbol
+          }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '6':
       case 'six':
+        if (this.board[1][2] == " "){
           this.board[1][2] = symbol
+          }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '7':
       case 'seven':
+        if (this.board[2][0] == " "){
           this.board[2][0] = symbol
+          }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '8':
       case 'eight':
+        if (this.board[2][1] == " "){
           this.board[2][1] = symbol
+        }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       case '9':
       case 'nine':
+        if (this.board[2][2] == " "){
           this.board[2][2] = symbol
+        }
+        else
+          console.log("That spot is already taken - try another.")
         break;
 
       //Error handling if the user inputs an invalid operation
@@ -105,7 +144,34 @@ var Game = function(){
     }//switch
   }
 
-  this.drawO = function(){}
+  this.count = function(){
+    var Xcount = 0;
+    var Ocount = 0;
+
+    for(var i = 0; i < 3; ++i){
+      for(var j = 0; j < 3; ++j){
+
+        if(this.board[i][j] == "X")
+          Xcount ++;
+
+        if(this.board[i][j] == "O")
+          Ocount++;
+      }//inner for
+    }//outer for
+
+    if (Xcount > Ocount){
+      return true
+    }
+    else {
+      return false
+    }
+  }//this.count
+
+  this.showBoard = function(){
+    console.log(this.board[0])
+    console.log(this.board[1])
+    console.log(this.board[2])
+  }
 
   this.play = function(){
     console.log("Welcome to Tic-Tac-Toe! " + this.playerX.name + " you will go first.");
@@ -114,30 +180,27 @@ var Game = function(){
     console.log(helperBoardRow2);
     console.log(helperBoardRow3);
 
-    console.log( this.playerX.name + ", which spot would you like to put your X in? Please type a number.")
-    //x selects a spot
-    this.drawSymbol("X")
-    // while (winner() == false) {
-    //   if playerX.active == true
-    //     console.log("Enter the number of the spot where you would like to put your X.")
-    //
-    //   if (winner() == "X" || winner() == "O") {
-    //       break;
-    //   }
-    // }
+    while (this.winner() == false) {
+      if (this.count() == false){
+        console.log( this.playerX.name + ", which spot would you like to put your X in? Please type a number.")
+        this.drawSymbol("X")
+        this.showBoard()
+        if (this.winner() == "X") {
+          console.log("Congrats, " + this.playerX.name + " wins!")
+          break;
+        }
+      }
 
-
-
-    //show the board
-    console.log(this.board[0])
-    console.log(this.board[1])
-    console.log(this.board[2])
-    //check for winner
-    //o selects a spot
-    //drawSymbol("O")
-    //check for winner
-
-
+      if (this.count() == true){ //it's O's turn because there are more X's on the board
+        console.log( this.playerO.name + ", which spot would you like to put your O in? Please type a number.")
+        this.drawSymbol("O")
+        this.showBoard()
+        if (this.winner() == "O") {
+          console.log("Congrats, " + this.playerO.name + " wins!")
+          break;
+        }
+      }
+    }
   };//play
 };
 
