@@ -5,10 +5,13 @@
 // prompt.start();
 
 
-var Player = function(name,active){
-  this.name = name
-  this.active = active
+var Player = function(){
 };
+
+Player.name = function(name){
+  this.name = name
+}
+
 
 var Game = function(){
   this.board = [
@@ -174,7 +177,7 @@ var Game = function(){
   }
 
   this.play = function(){
-    console.log("Welcome to Tic-Tac-Toe! " + this.playerX.name + " you will go first.");
+    console.log("Welcome to Tic-Tac-Toe! " + this.playerX.name + ", you will go first.");
     console.log("Imagine if the spots in a Tic-Tac-Toe board were numbered, kind of like this: ")
     console.log(helperBoardRow1);
     console.log(helperBoardRow2);
