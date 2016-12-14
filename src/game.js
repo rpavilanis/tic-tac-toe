@@ -147,28 +147,40 @@ var Game = function(){
     }//switch
   }
 
-  this.count = function(){
+  this.countX = function(){
     var Xcount = 0;
-    var Ocount = 0;
 
     for(var i = 0; i < 3; ++i){
       for(var j = 0; j < 3; ++j){
 
         if(this.board[i][j] == "X")
           Xcount ++;
+      }//inner for
+    }//outer for
+    return Xcount
+  }
+
+  this.countO = function(){
+    var Ocount = 0;
+
+    for(var i = 0; i < 3; ++i){
+      for(var j = 0; j < 3; ++j){
 
         if(this.board[i][j] == "O")
           Ocount++;
       }//inner for
     }//outer for
+    return Ocount
+  }
 
-    if (Xcount > Ocount){
+  this.count = function(){
+    if (this.countX() > this.countO()){
       return true
     }
     else {
       return false
     }
-  }//this.count
+  }
 
   this.showBoard = function(){
     console.log(this.board[0])

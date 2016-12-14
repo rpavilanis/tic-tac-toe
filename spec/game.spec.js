@@ -13,14 +13,14 @@ describe('Game', function() {
   describe('playerX', function() {
     it('Game should initialize with playerX', function() {
         expect(testGame.playerX).toBeDefined();
-        expect(testGame.playerX.name).toEqual("Erin")
+        //expect(testGame.playerX.name).toEqual("Erin")
     });
   });
 
   describe('playerY', function() {
     it('Game should initialize with playerO', function() {
         expect(testGame.playerO).toBeDefined()
-        expect(testGame.playerO.name).toEqual("Rachel")
+        //expect(testGame.playerO.name).toEqual("Rachel")
     });
   });
 
