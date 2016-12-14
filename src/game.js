@@ -5,8 +5,10 @@
 // prompt.start();
 
 var Player = function(name){
-  this.name = name
+   this.name = name
 };
+
+//Player.prototype.name = " "//input from the user
 
 var Game = function(){
   this.board = [
@@ -23,8 +25,8 @@ var Game = function(){
     }
   }
 
-  this.playerX = new Player("Erin");
-  this.playerO = new Player("Rachel");
+  this.playerX = new Player("Xavier");
+  this.playerO = new Player("Octavia");
 
   this.winner = function(){
 
@@ -52,7 +54,6 @@ var Game = function(){
 
   this.tie = function(){
     if (this.winner() == false && this.countX() == 5){
-    console.log("Tie game!")
     return true
     }
     return false
@@ -196,6 +197,24 @@ var Game = function(){
     console.log(this.board[2])
   }
 
+  this.announceWinner = function(){
+    if(this.tie() == true){
+      console.log("Tie game!")
+      return true
+    }
+
+    if (this.winner() == "O") {
+      console.log("Congrats, " + this.playerO.name + " wins!")
+      return true
+    }
+
+    if (this.winner() == "X") {
+      console.log("Congrats, " + this.playerX.name + " wins!")
+      return true
+    }
+    return false
+  }
+
   this.play = function(){
     console.log("Welcome to Tic-Tac-Toe! " + this.playerX.name + ", you will go first.");
     console.log("Imagine if the spots in a Tic-Tac-Toe board were numbered, kind of like this: ")
@@ -209,11 +228,7 @@ var Game = function(){
         //take in the number of the spot
         this.drawSymbol("X", Math.floor((Math.random() * 10) + 1).toString())
         this.showBoard()
-        if (this.tie() == true){
-          break;
-        }
-        if (this.winner() == "X") {
-          console.log("Congrats, " + this.playerX.name + " wins!")
+        if (this.announceWinner() == true){
           break;
         }
       }
@@ -223,11 +238,7 @@ var Game = function(){
         //take in the number of the spot
         this.drawSymbol("O", Math.floor((Math.random() * 10)+ 1).toString())
         this.showBoard()
-        if (this.tie() == true){
-          break;
-        }
-        if (this.winner() == "O") {
-          console.log("Congrats, " + this.playerO.name + " wins!")
+        if (this.announceWinner() == true){
           break;
         }
       }
@@ -235,8 +246,8 @@ var Game = function(){
   };//play
 };
 
-// var game = new Game
-// game.play();
+var game = new Game
+game.play();
 
 
 // prompt.get(['playerX','playerO'], game);
