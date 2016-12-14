@@ -51,10 +51,11 @@ var Game = function(){
   }
 
   this.tie = function(){
-    if (this.winner == false && this.Xcount == 5){
+    if (this.winner() == false && this.countX() == 5){
     console.log("Tie game!")
     return true
     }
+    return false
   }
 
   var helperBoardRow1 = [1,2,3]

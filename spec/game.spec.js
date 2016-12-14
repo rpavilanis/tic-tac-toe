@@ -174,6 +174,23 @@ describe('Game', function() {
     });
   });
 
+  describe('tie', function() {
+    it('should declare a tie game if there is not a winner', function() {
+      testGame.board = [
+                      [" "," "," "],
+                      [" "," "," "],
+                      [" "," "," "],
+                    ];
+      expect(testGame.tie()).toEqual(false)
+
+      testGame.board = [
+              ["X","O","X"],
+              ["X","X","O"],
+              ["O","X","O"],
+            ];
+      expect(testGame.tie()).toEqual(true)
+    });
+  });
 
 
 });
