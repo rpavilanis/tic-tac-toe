@@ -24,10 +24,11 @@ describe('Game', function() {
     });
   });
 
-  describe('winner', function() {
+  describe('winner and announceWinner', function() {
     it('There should not be winner on an empty board', function() {
         expect(testGame.winner()).toBeDefined();
         expect(testGame.winner()).toEqual(false);
+        expect(testGame.announceWinner()).toEqual(false);
     });
 
     it('should return the winner for horizontal wins', function() {
@@ -37,6 +38,7 @@ describe('Game', function() {
               [" "," "," "],
             ];
         expect(testGame.winner()).toEqual("X");
+        expect(testGame.announceWinner()).toEqual(true);
 
         testGame.board = [
               [" "," "," "],
@@ -44,6 +46,7 @@ describe('Game', function() {
               [" "," "," "],
             ];
         expect(testGame.winner()).toEqual("X");
+        expect(testGame.announceWinner()).toEqual(true);
 
         testGame.board = [
               [" "," "," "],
@@ -51,6 +54,7 @@ describe('Game', function() {
               ["X","X","X"],
             ];
         expect(testGame.winner()).toEqual("X");
+        expect(testGame.announceWinner()).toEqual(true);
     });
 
       it('should return the winner for vertical wins', function() {
@@ -60,6 +64,7 @@ describe('Game', function() {
                 ["O"," "," "],
               ];
         expect(testGame.winner()).toEqual("O");
+        expect(testGame.announceWinner()).toEqual(true);
 
         testGame.board = [
                 [" ","O"," "],
@@ -67,6 +72,7 @@ describe('Game', function() {
                 [" ","O"," "],
               ];
         expect(testGame.winner()).toEqual("O");
+        expect(testGame.announceWinner()).toEqual(true);
 
         testGame.board = [
                 [" "," ","O"],
@@ -74,6 +80,7 @@ describe('Game', function() {
                 [" "," ","O"],
               ];
         expect(testGame.winner()).toEqual("O");
+        expect(testGame.announceWinner()).toEqual(true);
     });
 
     it('should return the winner for diagonal wins', function() {
@@ -83,6 +90,7 @@ describe('Game', function() {
               [" "," ","O"],
             ];
       expect(testGame.winner()).toEqual("O");
+      expect(testGame.announceWinner()).toEqual(true);
 
       testGame.board = [
               [" "," ","X"],
@@ -90,6 +98,7 @@ describe('Game', function() {
               ["X"," "," "],
             ];
       expect(testGame.winner()).toEqual("X");
+      expect(testGame.announceWinner()).toEqual(true);
     });
   });
 
@@ -172,6 +181,21 @@ describe('Game', function() {
         testGame.drawSymbol("O", "1");
         expect(testGame.board[0][0]).toEqual("X") //should still be X
     });
+
+    it('should only accept digits 1-9 or words one...nine as valid spots', function() {
+        testGame.boardReset()
+        testGame.drawSymbol("X", "bacon");
+        testGame.drawSymbol("0", "10");
+        expect(testGame.board[0][0]).toEqual(" ")
+        expect(testGame.board[0][1]).toEqual(" ")
+        expect(testGame.board[0][2]).toEqual(" ")
+        expect(testGame.board[1][0]).toEqual(" ")
+        expect(testGame.board[1][1]).toEqual(" ")
+        expect(testGame.board[1][2]).toEqual(" ")
+        expect(testGame.board[2][0]).toEqual(" ")
+        expect(testGame.board[2][1]).toEqual(" ")
+        expect(testGame.board[2][2]).toEqual(" ")
+    });
   });
 
   describe('tie', function() {
@@ -182,6 +206,7 @@ describe('Game', function() {
                       [" "," "," "],
                     ];
       expect(testGame.tie()).toEqual(false)
+      expect(testGame.announceWinner()).toEqual(false);
 
       testGame.board = [
               ["X","O","X"],
@@ -189,6 +214,7 @@ describe('Game', function() {
               ["O","X","O"],
             ];
       expect(testGame.tie()).toEqual(true)
+      expect(testGame.announceWinner()).toEqual(true);
     });
   });
 

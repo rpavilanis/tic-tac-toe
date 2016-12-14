@@ -246,8 +246,8 @@ var Game = function(){
   };//play
 };
 
-var game = new Game
-game.play();
+// var game = new Game
+// game.play();
 
 
 // prompt.get(['playerX','playerO'], game);
