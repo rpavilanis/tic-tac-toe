@@ -50,6 +50,13 @@ var Game = function(){
       return false
   }
 
+  this.tie = function(){
+    if (this.winner == false && this.Xcount == 5){
+    console.log("Tie game!")
+    return true
+    }
+  }
+
   var helperBoardRow1 = [1,2,3]
   var helperBoardRow2 = [4,5,6]
   var helperBoardRow3 = [7,8,9]
@@ -201,6 +208,9 @@ var Game = function(){
         //take in the number of the spot
         this.drawSymbol("X", Math.floor((Math.random() * 10) + 1).toString())
         this.showBoard()
+        if (this.tie() == true){
+          break;
+        }
         if (this.winner() == "X") {
           console.log("Congrats, " + this.playerX.name + " wins!")
           break;
@@ -212,6 +222,9 @@ var Game = function(){
         //take in the number of the spot
         this.drawSymbol("O", Math.floor((Math.random() * 10)+ 1).toString())
         this.showBoard()
+        if (this.tie() == true){
+          break;
+        }
         if (this.winner() == "O") {
           console.log("Congrats, " + this.playerO.name + " wins!")
           break;
@@ -221,8 +234,8 @@ var Game = function(){
   };//play
 };
 
-var game = new Game
-game.play();
+// var game = new Game
+// game.play();
 
 
 // prompt.get(['playerX','playerO'], game);

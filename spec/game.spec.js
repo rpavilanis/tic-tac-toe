@@ -93,7 +93,7 @@ describe('Game', function() {
     });
   });
 
-  describe('count', function() {
+  describe('count, countX, countO', function() {
     it("should return true when there are more X's than O's", function() {
       testGame.board = [  //all Xs, no Os
               [" "," ","X"],
@@ -101,6 +101,8 @@ describe('Game', function() {
               ["X"," "," "],
             ];
       expect(testGame.count()).toEqual(true);
+      expect(testGame.countX()).toEqual(3);
+      expect(testGame.countO()).toEqual(0);
 
       testGame.board = [  // same # Xs and Os
               ["O","O","X"],
@@ -108,13 +110,17 @@ describe('Game', function() {
               ["X"," "," "],
             ];
       expect(testGame.count()).toEqual(false);
+      expect(testGame.countX()).toEqual(3);
+      expect(testGame.countO()).toEqual(3);
 
-      testGame.board = [ //more Os than Xs
+      testGame.board = [ //more Os than Xs note: this should never occur given our game set up because X always goes first
               ["O","O","X"],
               [" ","X","O"],
               ["X"," ","O"],
             ];
       expect(testGame.count()).toEqual(false);
+      expect(testGame.countX()).toEqual(3);
+      expect(testGame.countO()).toEqual(4);
 
       testGame.board = [ //more Xs than Os
               ["O","O","X"],
@@ -122,6 +128,8 @@ describe('Game', function() {
               ["X"," ","X"],
             ];
       expect(testGame.count()).toEqual(true);
+      expect(testGame.countX()).toEqual(4);
+      expect(testGame.countO()).toEqual(3);
 
       testGame.board = [ //empty board
               [" "," "," "],
@@ -129,6 +137,8 @@ describe('Game', function() {
               [" "," "," "],
             ];
       expect(testGame.count()).toEqual(false);
+      expect(testGame.countX()).toEqual(0);
+      expect(testGame.countO()).toEqual(0);
     });
   });
 
@@ -162,8 +172,6 @@ describe('Game', function() {
         testGame.drawSymbol("O", "1");
         expect(testGame.board[0][0]).toEqual("X") //should still be X
     });
-
-
   });
 
 
