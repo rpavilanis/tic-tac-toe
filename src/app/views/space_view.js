@@ -11,7 +11,16 @@ const SpaceView = Backbone.View.extend({
 
   render: function() {
 
-  }
+  },
+
+  events: {
+   'click .space': 'addSymbol',
+ },
+
+ addSymbol: function(event) {
+   console.log("Breadcrumb #1");
+ }
+
 });
 
 
