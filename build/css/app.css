@@ -1,22 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Sigmar+One');
+
 /**************************/
 /*       Board            */
 /**************************/
 
-.square{
-    width:100px;
-    height:100px;
+* {
+  margin: 0 auto;
+  margin-top: 2%;
+  padding: 0;
+  font-family: 'Sigmar One';
 }
 
-.v{
-    border-left:1px solid #000;
-    border-right:1px solid #000;
+table tr:nth-of-type(even) {
+    background-color: transparent !important;
 }
 
-.h{
-    border-top:1px solid #000;
-    border-bottom:1px solid #000;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-style: hidden;
+}
+
+#board {
+  width: 30%;
+  padding: 0px;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+#board tr td {
+  width: 80px;
+  height: 80px;
+  border: 1px solid #1c1c1c;
+  font-family: Helvetica;
+  font-size: 1em;
+  text-align: center;
+}
+
+#board tr td:hover {
+  background: #e4e4e4;
+  cursor: pointer;
 }
 
 /**************************/
-/*                */
+/*   Header               */
 /**************************/
+
+h2 {
+  text-align: center;
+}
