@@ -21,22 +21,26 @@ const GameView = Backbone.View.extend({
   play: function(event){
     if (this.turn) {
       this.drawSymbol("&", event);
-      if (this.announceWinner() === true){
+      if (this.announceWinner() === true && this.countX() == 5){
+        this.showModal("No one");
+      }
+      else if (this.announceWinner() === true) {
         this.showModal("&");
-        console.log("announce winner is true");
       }
     } else {
       this.drawSymbol("||", event);
-      if (this.announceWinner() === true){
+      if (this.announceWinner() === true && this.countX() == 5){
+        this.showModal("No one");
+      }
+      else if (this.announceWinner() === true) {
         this.showModal("||");
-        console.log("announce winner is true");
       }
     }
     this.turn = !this.turn;
   },
 
   showModal: function(name) {
-    var html = "Player " + name + " is the winner. Play again?";
+    var html = name + " is the winner. Play again?";
 
     $('#game-results').show();
     $('#game-results').html(html);
@@ -45,7 +49,6 @@ const GameView = Backbone.View.extend({
 
   drawSymbol: function(symbol, event) {
     var clickedElement = $(event.target);
-    console.log(clickedElement.data('x'));
 
     var x = clickedElement.data('x');
     var y = clickedElement.data('y');
@@ -58,7 +61,6 @@ const GameView = Backbone.View.extend({
   },
 
   winner: function(){
-    console.log("getting to winner");
 
       for (var i=0; i < 3; i++){
         //horizontal winner
@@ -90,19 +92,32 @@ const GameView = Backbone.View.extend({
   },
 
   announceWinner: function(){
-      console.log("getting to announceWinner");
+
     if(this.tie() === true){
       return true;
     }
 
-    if (this.winner() == "&") {
+    else if (this.winner() == "&") {
       return true;
     }
 
-    if (this.winner() == "||") {
+    else if (this.winner() == "||") {
       return true;
     }
     return false;
+  },
+
+  countX: function(){
+    var Xcount = 0;
+
+    for(var i = 0; i < 3; ++i){
+      for(var j = 0; j < 3; ++j){
+
+        if(this.model.get("board")[i][j] == "&")
+          Xcount ++;
+      }//inner for
+    }//outer for
+    return Xcount;
   }
 });
 
