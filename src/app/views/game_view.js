@@ -6,7 +6,7 @@ import BoardView from 'app/views/board_view';
 
 const GameView = Backbone.View.extend({
   initialize: function() {
-
+    this.template = _.template($('#tmpl-game-results').html());
   },
 
   render: function() {
@@ -17,31 +17,15 @@ const GameView = Backbone.View.extend({
    'click .space': 'play',
  },
 
- drawSymbol: function(symbol, event) {
-   var clickedElement = $(event.target);
-   console.log(clickedElement.data('x'));
-   var x = clickedElement.data('x');
-   var y = clickedElement.data('y');
-
-   if (this.model.get("board")[x][y] == " ") {
-     console.log("Breadcrumb #3");
-      clickedElement.replaceWith(symbol);
-      this.model.get("board")[x][y] = symbol;
-
-    }
-},
-
-
-play: function(event){
-  console.log("Breadcrumb #1");
-
-  while (this.winner() === false) {
+  play: function(event){
     if (this.count() === false){
       console.log( "Which spot would you like to put your X in? Please type a number.");
       //take in the number of the spot
       this.drawSymbol("X", event);
       if (this.announceWinner() === true){
-        break;
+        // add a pop up window that announces winner and asks user if they want to play again
+        this.showModal("X");
+        console.log("announce winner is true");
       }
     }
 
@@ -50,14 +34,38 @@ play: function(event){
       //take in the number of the spot
       this.drawSymbol("O", event);
       if (this.announceWinner() === true){
-        break;
+        // add a pop up window that announces winner (player O) and asks user if they want to play again
+        this.showModal("O");
+        console.log("announce winner is true");
       }
     }
-  }
-},
 
+  },
+
+  showModal: function(name) {
+    var html = "Player " + name + "is the winner. Play again?";
+
+    $('#game-results').show();
+    $('#game-results').html(html);
+
+  },
+
+  drawSymbol: function(symbol, event) {
+    var clickedElement = $(event.target);
+    console.log(clickedElement.data('x'));
+
+    var x = clickedElement.data('x');
+    var y = clickedElement.data('y');
+
+    if (this.model.get("board")[x][y] == " ") {
+       clickedElement.html(symbol);
+       this.model.get("board")[x][y] = symbol;
+
+     }
+  },
 
   winner: function(){
+    console.log("getting to winner");
 
       for (var i=0; i < 3; i++){
         //horizontal winner
@@ -89,18 +97,16 @@ play: function(event){
   },
 
   announceWinner: function(){
+      console.log("getting to announceWinner");
     if(this.tie() === true){
-      console.log("Tie game!");
       return true;
     }
 
     if (this.winner() == "O") {
-      console.log("Congrats, " + this.playerO.get("name") + " wins!");
       return true;
     }
 
     if (this.winner() == "X") {
-      console.log("Congrats, " + this.playerX.get("name") + " wins!");
       return true;
     }
     return false;
