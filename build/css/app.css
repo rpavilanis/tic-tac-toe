@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Sigmar+One');
-
+@import url('https://fonts.googleapis.com/css?family=Lato|Orbitron');
 /**************************/
 /*   Header               */
 /**************************/
 
 h2 {
-  font-family: 'Sigmar One';
+  font-family: 'Orbitron';
   text-align: center;
 }
 
@@ -14,10 +13,13 @@ h2 {
 /*       Board            */
 /**************************/
 
+body {
+  background-color: #F3F3F3;
+}
 
 * {
   margin: 0 auto;
-  margin-top: 2%;
+  /*margin-top: 2%;*/
   padding: 0;
 }
 
@@ -45,9 +47,31 @@ table {
   font-family: 'Lato';
   font-size: 1em;
   text-align: center;
+  background-color: #F3F3F3;
 }
 
 #board tr td:hover {
-  background: #e4e4e4;
+  background: #33F3D6;
   cursor: pointer;
+}
+
+/**************************/
+/*       Modal            */
+/**************************/
+
+
+.game-results-styling {
+  z-index: 10;
+  position: fixed;
+  width: 50%;
+  height: 50%;
+  top: 15%;
+  left: 25%;
+  background-color: #999b9a;
+  color: #401FF3;
+  text-align: center;
+  border: 1em solid white;
+  font-size: 2em;
+  display: none;
+  font-family: 'Orbitron';
 }

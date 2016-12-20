@@ -7,6 +7,7 @@ import BoardView from 'app/views/board_view';
 const GameView = Backbone.View.extend({
   initialize: function() {
     this.template = _.template($('#tmpl-game-results').html());
+    this.turn = true;
   },
 
   render: function() {
@@ -18,32 +19,24 @@ const GameView = Backbone.View.extend({
  },
 
   play: function(event){
-    if (this.count() === false){
-      console.log( "Which spot would you like to put your X in? Please type a number.");
-      //take in the number of the spot
-      this.drawSymbol("X", event);
+    if (this.turn) {
+      this.drawSymbol("&", event);
       if (this.announceWinner() === true){
-        // add a pop up window that announces winner and asks user if they want to play again
-        this.showModal("X");
+        this.showModal("&");
+        console.log("announce winner is true");
+      }
+    } else {
+      this.drawSymbol("||", event);
+      if (this.announceWinner() === true){
+        this.showModal("||");
         console.log("announce winner is true");
       }
     }
-
-    if (this.count() === true){ //it's O's turn because there are more X's on the board
-      console.log("which spot would you like to put your O in? Please type a number.");
-      //take in the number of the spot
-      this.drawSymbol("O", event);
-      if (this.announceWinner() === true){
-        // add a pop up window that announces winner (player O) and asks user if they want to play again
-        this.showModal("O");
-        console.log("announce winner is true");
-      }
-    }
-
+    this.turn = !this.turn;
   },
 
   showModal: function(name) {
-    var html = "Player " + name + "is the winner. Play again?";
+    var html = "Player " + name + " is the winner. Play again?";
 
     $('#game-results').show();
     $('#game-results').html(html);
@@ -102,11 +95,11 @@ const GameView = Backbone.View.extend({
       return true;
     }
 
-    if (this.winner() == "O") {
+    if (this.winner() == "&") {
       return true;
     }
 
-    if (this.winner() == "X") {
+    if (this.winner() == "||") {
       return true;
     }
     return false;
@@ -118,10 +111,11 @@ const GameView = Backbone.View.extend({
     for(var i = 0; i < 3; ++i){
       for(var j = 0; j < 3; ++j){
 
-        if(this.model.get("board")[i][j] == "X")
+        if(this.model.get("board")[i][j] == "&")
           Xcount ++;
       }//inner for
     }//outer for
+    console.log(Xcount);
     return Xcount;
   },
 
@@ -131,10 +125,11 @@ const GameView = Backbone.View.extend({
     for(var i = 0; i < 3; ++i){
       for(var j = 0; j < 3; ++j){
 
-        if(this.model.get("board")[i][j] == "O")
+        if(this.model.get("board")[i][j] == "||")
           Ocount++;
       }//inner for
     }//outer for
+    console.log(Ocount);
     return Ocount;
   },
 
