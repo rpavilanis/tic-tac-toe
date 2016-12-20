@@ -51,7 +51,7 @@ table {
 }
 
 #board tr td:hover {
-  background: #33F3D6;
+  background: #E600B8;
   cursor: pointer;
 }
 
@@ -70,7 +70,8 @@ table {
   background-color: #999b9a;
   color: #401FF3;
   text-align: center;
-  border: 1em solid white;
+  padding-top: 10%;
+  border: 1em solid #33F3D6;
   font-size: 2em;
   display: none;
   font-family: 'Orbitron';
