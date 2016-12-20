@@ -103,43 +103,6 @@ const GameView = Backbone.View.extend({
       return true;
     }
     return false;
-  },
-
-  countX: function(){
-    var Xcount = 0;
-
-    for(var i = 0; i < 3; ++i){
-      for(var j = 0; j < 3; ++j){
-
-        if(this.model.get("board")[i][j] == "&")
-          Xcount ++;
-      }//inner for
-    }//outer for
-    console.log(Xcount);
-    return Xcount;
-  },
-
-  countO: function(){
-    var Ocount = 0;
-
-    for(var i = 0; i < 3; ++i){
-      for(var j = 0; j < 3; ++j){
-
-        if(this.model.get("board")[i][j] == "||")
-          Ocount++;
-      }//inner for
-    }//outer for
-    console.log(Ocount);
-    return Ocount;
-  },
-
-  count: function(){
-    if (this.countX() > this.countO()){
-      return true;
-    }
-    else {
-      return false;
-    }
   }
 });
 
