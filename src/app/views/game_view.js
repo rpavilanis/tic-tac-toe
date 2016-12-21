@@ -6,7 +6,6 @@ import Game from 'app/models/game';
 
 const GameView = Backbone.View.extend({
   initialize: function() {
-    this.template = _.template($('#tmpl-game-results').html());
     this.turn = true;
     this.outcome = null;
   },
@@ -17,10 +16,10 @@ const GameView = Backbone.View.extend({
 
   events: {
    'click .space': 'play',
-   'click .new-game': 'newGame'
+   'click #game-results': 'newGame'
  },
 
-  newGame: function() {
+  newGame: function(event) {
     location.reload(true);
   },
 
@@ -55,9 +54,10 @@ const GameView = Backbone.View.extend({
   },
 
   showModal: function(name) {
-    var html = name + " is the winner. Play again?";
+    var html = name + " is the winner. Click anywhere in this box to play again!";
 
     this.outcome = name;
+
     $('#game-results').show();
     $('#game-results').html(html);
 
@@ -90,9 +90,7 @@ const GameView = Backbone.View.extend({
     return endBoard;
   },
 
-
   apiFormat: function(){
-
     var gameInfo = {
       board: this.finalBoard(),
       players: ["& Player", "|| Player"],
