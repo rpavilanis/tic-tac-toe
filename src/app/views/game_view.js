@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import $ from 'jquery';
 import Backbone from 'backbone';
-import BoardView from 'app/views/board_view';
+import Game from 'app/models/game';
 
 
 const GameView = Backbone.View.extend({
@@ -14,6 +14,18 @@ const GameView = Backbone.View.extend({
 
   },
 
+  apiFormat: function(){
+    var gameInfo =
+    {
+      board: this.model.board,
+      players: this.model.players,
+      outcome: this.outcome,
+      played_at: this.model.played_at
+
+    };
+    return gameInfo;
+  },
+
   events: {
    'click .space': 'play',
  },
@@ -23,17 +35,29 @@ const GameView = Backbone.View.extend({
       this.drawSymbol("&", event);
       if (this.announceWinner() === true && this.countX() == 5){
         this.showModal("No one");
+        console.log(this.model);
+        var gameDetails = this.apiFormat();
+        this.model.save(gameDetails);
       }
       else if (this.announceWinner() === true) {
         this.showModal("&");
+        console.log(this.model);
+        // var gameDetails = this.apiFormat();
+        // this.model.save(gameDetails);
       }
     } else {
       this.drawSymbol("||", event);
       if (this.announceWinner() === true && this.countX() == 5){
         this.showModal("No one");
+        console.log(this.model);
+        // var gameDetails = this.apiFormat();
+        // this.model.save(gameDetails);
       }
       else if (this.announceWinner() === true) {
         this.showModal("||");
+        console.log(this.model);
+        // var gameDetails = this.apiFormat();
+        // this.model.save(gameDetails);
       }
     }
     this.turn = !this.turn;
@@ -51,35 +75,39 @@ const GameView = Backbone.View.extend({
     var clickedElement = $(event.target);
 
     var x = clickedElement.data('x');
-    var y = clickedElement.data('y');
+    // var y = clickedElement.data('y');
 
-    if (this.model.get("board")[x][y] == " ") {
+    if (this.model.get("board")[x] == " ") {
        clickedElement.html(symbol);
-       this.model.get("board")[x][y] = symbol;
+       this.model.get("board")[x] = symbol;
 
      }
   },
 
   winner: function(){
-
-      for (var i=0; i < 3; i++){
+      for (var i=0; i < 7; i+=3){
         //horizontal winner
-        if (this.model.get("board")[i][0] != " "  && this.model.get("board")[i][0] == this.model.get("board")[i][1] && this.model.get("board")[i][0] == this.model.get("board")[i][2]){
-          return this.model.get("board")[i][0];
+        if (
+          (this.model.get("board")[i] != " " && this.model.get("board")[i] == this.model.get("board")[i+1] && this.model.get("board")[i] == this.model.get("board")[i+2])
+          ) {
+          return this.model.get("board")[i];
         }
+      }
+
+      for (var j=0; j < 3; j++){
         //vertical winner
-        if (this.model.get("board")[0][i] != " "  && this.model.get("board")[0][i] == this.model.get("board")[1][i] && this.model.get("board")[0][i] == this.model.get("board")[2][i]){
-          return this.model.get("board")[0][i];
+        if (this.model.get("board")[j] != " " && this.model.get("board")[j] ==  this.model.get("board")[j+3] && this.model.get("board")[j] == this.model.get("board")[j+6]){
+          return this.model.get("board")[j];
         }
       }
 
       //diagonal winners
-      if (this.model.get("board")[0][0] != " "  && this.model.get("board")[0][0] == this.model.get("board")[1][1] && this.model.get("board")[0][0] == this.model.get("board")[2][2]){
-        return this.model.get("board")[0][0];
+      if (this.model.get("board")[0] != " " && this.model.get("board")[0] == this.model.get("board")[4] && this.model.get("board")[0] ==   this.model.get("board")[8]){
+        return this.model.get("board")[0];
       }
 
-      if (this.model.get("board")[0][2] != " "  && this.model.get("board")[0][2] == this.model.get("board")[1][1] && this.model.get("board")[0][2] == this.model.get("board")[2][0]){
-        return this.model.get("board")[0][2];
+      if (this.model.get("board")[2] != " " && this.model.get("board")[6] == this.model.get("board")[4] && this.model.get("board")[6] ==  this.model.get("board")[2]){
+        return this.model.get("board")[2];
       }
       return false;
   },

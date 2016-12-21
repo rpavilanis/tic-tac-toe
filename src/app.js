@@ -8,7 +8,12 @@ import $ from 'jquery';
 // });
 
 $(document).ready(function() {
+  // var games = new Games();
+  // games.fetch();
+
   var game = new Game();
+
+
   var spaces = new GameView({
     el: '#application',
     model: game
