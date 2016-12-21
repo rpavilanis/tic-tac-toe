@@ -8,22 +8,11 @@ const GameView = Backbone.View.extend({
   initialize: function() {
     this.template = _.template($('#tmpl-game-results').html());
     this.turn = true;
+    this.outcome = null;
   },
 
   render: function() {
 
-  },
-
-  apiFormat: function(){
-    var gameInfo =
-    {
-      board: this.model.board,
-      players: this.model.players,
-      outcome: this.outcome,
-      played_at: this.model.played_at
-
-    };
-    return gameInfo;
   },
 
   events: {
@@ -36,28 +25,21 @@ const GameView = Backbone.View.extend({
       if (this.announceWinner() === true && this.countX() == 5){
         this.showModal("No one");
         console.log(this.model);
-        var gameDetails = this.apiFormat();
-        this.model.save(gameDetails);
       }
       else if (this.announceWinner() === true) {
         this.showModal("&");
         console.log(this.model);
-        // var gameDetails = this.apiFormat();
-        // this.model.save(gameDetails);
+        console.log(this.model.get("board"));
       }
     } else {
       this.drawSymbol("||", event);
       if (this.announceWinner() === true && this.countX() == 5){
         this.showModal("No one");
         console.log(this.model);
-        // var gameDetails = this.apiFormat();
-        // this.model.save(gameDetails);
       }
       else if (this.announceWinner() === true) {
         this.showModal("||");
         console.log(this.model);
-        // var gameDetails = this.apiFormat();
-        // this.model.save(gameDetails);
       }
     }
     this.turn = !this.turn;
@@ -66,9 +48,22 @@ const GameView = Backbone.View.extend({
   showModal: function(name) {
     var html = name + " is the winner. Play again?";
 
+    this.outcome = name;
     $('#game-results').show();
     $('#game-results').html(html);
 
+    var gameDetails = this.apiFormat();
+    this.model.save(gameDetails);
+
+  },
+
+  apiFormat: function(){
+    var gameInfo = {
+      board: this.model.get("board"),
+      players: ["& Player", "|| Player"],
+      outcome: this.outcome
+    };
+    return gameInfo;
   },
 
   drawSymbol: function(symbol, event) {

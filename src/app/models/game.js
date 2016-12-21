@@ -18,20 +18,6 @@ const Game = Backbone.Model.extend ( {
             " "," "," "
           ]
       );
-    this.set("players",
-        ["& Player",
-         "|| Player"
-       ]
-
-      );
-    this.set("outcome", null);
-    this.set("played_at", new Date());
-    // this.playerX = new Player({
-    //   name:"Xavier"
-    // });
-    // this.playerO = new Player({
-    //   name: "Octavia"
-    // });
   },
 
 });

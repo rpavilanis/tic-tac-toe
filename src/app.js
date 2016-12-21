@@ -2,14 +2,7 @@ import GameView from 'app/views/game_view';
 import Game from 'app/models/game';
 import $ from 'jquery';
 
-
-// var game = new Game({
-//
-// });
-
 $(document).ready(function() {
-  // var games = new Games();
-  // games.fetch();
 
   var game = new Game();
 
@@ -19,7 +12,6 @@ $(document).ready(function() {
     model: game
 
   });
-
 
   spaces.render();
 
