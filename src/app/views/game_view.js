@@ -61,14 +61,40 @@ const GameView = Backbone.View.extend({
     $('#game-results').show();
     $('#game-results').html(html);
 
+    if (name == "&") {
+      this.outcome = "X";
+    }
+    else if (name == "||") {
+      this.outcome = "O";
+    }
+    else if (name == "No one") {
+      this.outcome = "draw";
+    }
+
     var gameDetails = this.apiFormat();
     this.model.save(gameDetails);
 
   },
 
+  finalBoard: function() {
+    var endBoard = this.model.get("board");
+
+    for (var i=0; i < endBoard.length; i++) {
+      if (endBoard[i] == "&") {
+        endBoard[i] = "X";
+      }
+      else if (endBoard[i] == "||") {
+          endBoard[i] = "O";
+      }
+    }
+    return endBoard;
+  },
+
+
   apiFormat: function(){
+
     var gameInfo = {
-      board: this.model.get("board"),
+      board: this.finalBoard(),
       players: ["& Player", "|| Player"],
       outcome: this.outcome
     };
