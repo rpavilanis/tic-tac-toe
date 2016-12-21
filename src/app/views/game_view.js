@@ -17,27 +17,36 @@ const GameView = Backbone.View.extend({
 
   events: {
    'click .space': 'play',
+   'click .new-game': 'newGame'
  },
+
+  newGame: function() {
+    location.reload(true);
+  },
 
   play: function(event){
     if (this.turn) {
       this.drawSymbol("&", event);
       if (this.announceWinner() === true && this.countX() == 5){
+        console.log(this.countX());
         this.showModal("No one");
         console.log(this.model);
       }
       else if (this.announceWinner() === true) {
+        console.log(this.countX());
         this.showModal("&");
         console.log(this.model);
         console.log(this.model.get("board"));
       }
     } else {
+      console.log(this.countX());
       this.drawSymbol("||", event);
       if (this.announceWinner() === true && this.countX() == 5){
         this.showModal("No one");
         console.log(this.model);
       }
       else if (this.announceWinner() === true) {
+        console.log(this.countX());
         this.showModal("||");
         console.log(this.model);
       }
@@ -133,13 +142,10 @@ const GameView = Backbone.View.extend({
   countX: function(){
     var Xcount = 0;
 
-    for(var i = 0; i < 3; ++i){
-      for(var j = 0; j < 3; ++j){
-
-        if(this.model.get("board")[i][j] == "&")
-          Xcount ++;
-      }//inner for
-    }//outer for
+    for(var i = 0; i < 9; ++i){
+      if(this.model.get("board")[i] == "&")
+        Xcount ++;
+    }
     return Xcount;
   }
 });
